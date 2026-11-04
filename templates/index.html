@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Carding Web - Ultra VIP Vault</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;700&display=swap');
+        body { font-family: 'Rajdhani', sans-serif; background-color: #030712; color: #ffffff; overflow-x: hidden; }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .neon-glow-blue { box-shadow: 0 0 35px rgba(14, 165, 233, 0.6), inset 0 0 20px rgba(14, 165, 233, 0.3); }
+        .neon-glow-cyan { box-shadow: 0 0 35px rgba(6, 182, 212, 0.7), inset 0 0 15px rgba(6, 182, 212, 0.4); }
+        .neon-text-glow { text-shadow: 0 0 12px rgba(56, 189, 248, 0.9), 0 0 25px rgba(14, 165, 233, 0.8); }
+        .cyber-border { border: 2px solid rgba(56, 189, 248, 0.5); background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(3, 7, 18, 0.98) 100%); }
+        .credit-card { width: 100%; max-width: 380px; aspect-ratio: 1.586 / 1; border-radius: 16px; position: relative; overflow: hidden; background-size: cover; background-position: center; box-shadow: 0 10px 30px rgba(0, 102, 255, 0.3); border: 1.5px solid rgba(56, 189, 248, 0.6); }
+        .drawer { transform: translateX(-100%); transition: transform 0.3s ease-in-out; }
+        .drawer.open { transform: translateX(0); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between select-none bg-slate-950">
+
+    <div id="authScreen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#030712] bg-opacity-98">
+        <div class="cyber-border neon-glow-blue w-full max-w-md p-6 rounded-3xl relative backdrop-blur-2xl">
+            <div class="text-center mb-6">
+                <div class="inline-flex p-3 rounded-2xl bg-blue-950/80 border border-cyan-400/50 mb-2 shadow-lg shadow-cyan-500/30">
+                    <i class="fa-solid fa-shield-halved text-cyan-400 text-3xl animate-pulse"></i>
+                </div>
+                <h2 class="font-orbitron text-lg font-bold tracking-wider text-cyan-300">THE SECRET CARDING WEB</h2>
+                <h1 class="font-orbitron text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 neon-text-glow mt-1">AUTHENTICATION VAULT</h1>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2 bg-slate-900/80 p-1.5 rounded-2xl border border-sky-500/40 mb-6">
+                <button type="button" onclick="switchAuthTab('login')" id="loginTabBtn" class="py-2.5 rounded-xl font-orbitron text-xs font-bold transition-all bg-sky-500 text-white shadow-lg shadow-sky-500/50">LOG IN</button>
+                <button type="button" onclick="switchAuthTab('signup')" id="signupTabBtn" class="py-2.5 rounded-xl font-orbitron text-xs font-bold transition-all text-sky-200 hover:text-white">CREATE ACCOUNT</button>
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-orbitron text-sky-300 mb-1.5">USERNAME / यूज़रनेम</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cyan-400"><i class="fa-solid fa-user"></i></span>
+                        <input type="text" id="loginUser" required placeholder="Enter username" class="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-sky-500/50 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-orbitron text-sky-300 mb-1.5">PASSWORD / पासवर्ड</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cyan-400"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="loginPass" required placeholder="Enter password" class="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-sky-500/50 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3.5 mt-2 rounded-xl font-orbitron text-sm font-bold tracking-wider text-white bg-gradient-to-r from-cyan-500 via-sky-600 to-blue-600 shadow-lg neon-glow-cyan">LOG IN TO VAULT</button>
+            </form>
+
+            <form id="signupForm" onsubmit="handleSignup(event)" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-orbitron text-cyan-300 mb-1.5">CHOOSE USERNAME</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cyan-400"><i class="fa-solid fa-user-plus"></i></span>
+                        <input type="text" id="signupUser" required placeholder="Choose username" class="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-sky-500/50 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-orbitron text-cyan-300 mb-1.5">CHOOSE PASSWORD</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-cyan-400"><i class="fa-solid fa-key"></i></span>
+                        <input type="password" id="signupPass" required placeholder="Choose password" class="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-sky-500/50 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+                </div>
+                <button type="submit" class="w-full py-3.5 mt-2 rounded-xl font-orbitron text-sm font-bold tracking-wider text-white bg-gradient-to-r from-red-600 via-rose-600 to-pink-600 shadow-lg shadow-pink-600/50 border border-pink-400/50">CREATE ACCOUNT</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="mainApp" class="flex-1 flex flex-col justify-between hidden">
+        <header class="p-4 flex items-center justify-between border-b border-sky-500/40 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30">
+            <button onclick="toggleDrawer(true)" class="p-2.5 rounded-xl bg-slate-900 border border-sky-400/40 text-cyan-300">
+                <i class="fa-solid fa-bars text-lg"></i>
+            </button>
+            <div class="flex items-center space-x-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
+                <span class="font-orbitron font-extrabold text-sm md:text-base tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-400 to-blue-400 neon-text-glow">SECRET CARDING WEB</span>
+            </div>
+            <div class="flex items-center space-x-2 bg-slate-900 border border-cyan-400/40 px-3 py-1.5 rounded-xl relative">
+                <i class="fa-solid fa-wallet text-cyan-400 text-xs"></i>
+                <span class="font-orbitron font-bold text-xs text-cyan-200" id="userWalletDisplay">₹0.00</span>
+                <button id="headerEditBannerBtn" onclick="openAdminPanel()" class="hidden ml-1 p-1 bg-cyan-600 text-white rounded text-[10px] font-bold"><i class="fa-solid fa-pen"></i></button>
+            </div>
+        </header>
+
+        <main class="p-4 max-w-lg mx-auto w-full space-y-4 mb-16">
+            <div id="dynamicBannerContainer" class="w-full rounded-2xl overflow-hidden border-2 border-cyan-400/60 relative hidden shadow-lg cursor-pointer group">
+                <img id="bannerImageElem" src="" alt="Banner" class="w-full h-36 object-cover" onclick="handleBannerClick()">
+                <div id="bannerEditOverlay" class="absolute top-2 right-2 hidden">
+                    <button onclick="openAdminPanel()" class="px-2.5 py-1 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-orbitron text-[10px] font-bold shadow"><i class="fa-solid fa-pen mr-1"></i> Edit Banner</button>
+                </div>
+            </div>
+
+            <div id="categoryTabsContainer" class="flex space-x-2 overflow-x-auto no-scrollbar py-1"></div>
+
+            <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-cyan-400"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" id="searchInput" oninput="renderCards()" placeholder="Search bank..." class="w-full pl-10 pr-4 py-3 bg-slate-900/90 border border-sky-500/50 rounded-xl text-sm text-white focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <div id="cardsListContainer" class="space-y-4"></div>
+        </main>
+        <div id="sideDrawer" class="fixed inset-0 z-50 pointer-events-none">
+            <div id="drawerOverlay" onclick="toggleDrawer(false)" class="absolute inset-0 bg-black/80 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+            <div id="drawerContent" class="drawer absolute top-0 left-0 bottom-0 w-72 bg-slate-950 border-r-2 border-cyan-500/40 p-5 flex flex-col justify-between pointer-events-auto">
+                <div>
+                    <div class="flex items-center justify-between pb-4 border-b border-sky-500/40 mb-6">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                            <span class="font-orbitron font-bold text-xs text-cyan-200">SECRET CARDING WEB</span>
+                        </div>
+                        <button onclick="toggleDrawer(false)" class="text-sky-400 p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    </div>
+
+                    <nav class="space-y-2">
+                        <button onclick="toggleDrawer(false); openCardGallery()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-slate-900 border border-sky-500/40 text-sky-200 font-orbitron text-xs">
+                            <i class="fa-solid fa-vault text-cyan-400"></i>
+                            <span>Card Gallery</span>
+                        </button>
+                        <button onclick="toggleDrawer(false); openAddBalanceModal()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-slate-900 border border-sky-500/40 text-sky-200 font-orbitron text-xs">
+                            <i class="fa-solid fa-wallet text-cyan-400"></i>
+                            <span>Add Balance</span>
+                        </button>
+                        <button id="adminMenuBtn" onclick="toggleDrawer(false); openAdminPanel()" class="w-full hidden items-center space-x-3 px-4 py-3 rounded-xl bg-gradient-to-r from-blue-900 to-cyan-900 border border-cyan-400 text-white font-orbitron text-xs shadow-lg">
+                            <i class="fa-solid fa-user-gear text-cyan-300"></i>
+                            <span>Admin Panel (Manage)</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <div class="pt-4 border-t border-sky-500/40">
+                    <button onclick="handleLogout()" class="w-full flex items-center justify-center space-x-2 py-3 rounded-xl bg-red-950/60 border border-red-500/40 text-red-400 font-orbitron text-xs">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>LOGOUT</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="addBalanceModal" class="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/90 backdrop-blur-md hidden p-0 sm:p-4">
+            <div class="w-full max-w-md bg-[#0b0f19] border-t sm:border border-indigo-500/30 rounded-t-3xl sm:rounded-3xl overflow-hidden shadow-2xl relative max-h-[92vh] flex flex-col">
+                
+                <div class="flex items-center justify-between px-5 py-4 bg-[#111827] border-b border-gray-800">
+                    <div class="flex items-center space-x-3">
+                        <button onclick="closeAddBalanceModal()" class="text-gray-300 hover:text-white"><i class="fa-solid fa-arrow-left text-base"></i></button>
+                        <span class="font-orbitron font-bold text-sm text-white">Payment Gateway</span>
+                    </div>
+                    <button onclick="closeAddBalanceModal()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-gray-200 rounded-full text-xs font-semibold border border-gray-700">Cancel</button>
+                </div>
+
+                <div class="p-5 overflow-y-auto space-y-4">
+                    <div id="amountSelectionSection">
+                        <p class="text-xs text-sky-300 mb-2 font-orbitron font-bold">Select Amount to Add:</p>
+                        <div class="grid grid-cols-5 gap-1.5 mb-4">
+                            <button onclick="selectAmount(200)" class="amt-btn py-2 rounded-xl font-orbitron text-xs font-bold bg-slate-900 border border-cyan-500/40 text-cyan-200">₹200</button>
+                            <button onclick="selectAmount(300)" class="amt-btn py-2 rounded-xl font-orbitron text-xs font-bold bg-slate-900 border border-cyan-500/40 text-cyan-200">₹300</button>
+                            <button onclick="selectAmount(400)" class="amt-btn py-2 rounded-xl font-orbitron text-xs font-bold bg-slate-900 border border-cyan-500/40 text-cyan-200">₹400</button>
+                            <button onclick="selectAmount(500)" class="amt-btn py-2 rounded-xl font-orbitron text-xs font-bold bg-slate-900 border border-cyan-500/40 text-cyan-200">₹500</button>
+                            <button onclick="selectAmount(1000)" class="amt-btn py-2 rounded-xl font-orbitron text-xs font-bold bg-slate-900 border border-cyan-500/40 text-cyan-200">₹1000</button>
+                        </div>
+                        <button onclick="proceedToQR()" class="w-full py-3 rounded-xl font-orbitron text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg neon-glow-cyan">PROCEED TO QR</button>
+                    </div>
+
+                    <div id="qrSectionBox" class="hidden space-y-4">
+                        <div class="bg-gradient-to-r from-[#1e1b4b] to-[#0f172a] p-4 rounded-2xl border border-indigo-500/40 flex items-center justify-between shadow-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-xl font-black font-orbitron shadow">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-1.5">
+                                        <span class="font-orbitron font-bold text-sm text-white">Secret Carding Web</span>
+                                        <i class="fa-solid fa-circle-check text-cyan-400 text-xs"></i>
+                                    </div>
+                                    <p class="text-[10px] text-sky-300 font-medium">Verified UPI Merchant</p>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-[10px] text-gray-400 block font-orbitron uppercase">Amount Payable</span>
+                                <span id="displayPayAmount" class="font-orbitron font-black text-cyan-300 text-base">₹500.00</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between px-1">
+                            <span class="text-[11px] text-gray-400 font-medium">Scan & Pay With Any UPI App</span>
+                            <div class="bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-1 rounded-full flex items-center space-x-1">
+                                <i class="fa-solid fa-lock text-emerald-400 text-[10px]"></i>
+                                <span class="text-[10px] font-orbitron font-bold text-emerald-300">100% Secure</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-2xl shadow-xl border-2 border-indigo-400 text-center mx-auto w-64">
+                            <img id="displayQRImage" src="" alt="QR Code" class="w-56 h-56 mx-auto object-contain">
+                            <div class="mt-2 text-xs font-orbitron font-bold text-slate-900">
+                                <i class="fa-solid fa-clock text-indigo-600 mr-1 animate-spin"></i>
+                                <span id="countdownTimer" class="text-indigo-700">05:00</span>
+                            </div>
+                        </div>
+
+                        <p class="text-center text-xs text-emerald-400 font-semibold font-orbitron">यह पेमेंट करिए, ऑटो वेरीफाई हो जाएगा।</p>
+
+                        <div class="pt-2 border-t border-gray-800 text-center">
+                            <span class="text-[10px] uppercase font-orbitron text-gray-500 tracking-wider block mb-2">ACCEPTED UPI APPS</span>
+                            <div class="flex justify-center items-center space-x-4 text-xs font-orbitron text-gray-300">
+                                <span class="flex items-center space-x-1"><i class="fa-solid fa-mobile-screen text-indigo-400"></i> PhonePe</span>
+                                <span class="flex items-center space-x-1"><i class="fa-brands fa-google-pay text-blue-400"></i> Google Pay</span>
+                                <span class="flex items-center space-x-1"><i class="fa-solid fa-wallet text-cyan-400"></i> Paytm</span>
+                            </div>
+                        </div>
+
+                        <button onclick="resetPaymentModal()" class="w-full py-2.5 rounded-xl font-orbitron text-xs font-bold text-gray-300 bg-slate-900 border border-gray-700 mt-2">Back to Amount Selection</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="adminPanelModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md hidden">
+            <div class="cyber-border neon-glow-blue w-full max-w-lg p-6 rounded-3xl max-h-[90vh] overflow-y-auto relative">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="font-orbitron font-bold text-sm text-cyan-300">ADMIN CONTROL PANEL</h3>
+                    <button onclick="closeAdminPanel()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-slate-900/80 border border-cyan-500/40 p-4 rounded-2xl space-y-3">
+                        <h4 class="font-orbitron text-xs font-bold text-cyan-200"><i class="fa-solid fa-building-columns mr-2 text-cyan-400"></i>Manage Bank Categories</h4>
+                        <div class="flex space-x-2">
+                            <input type="text" id="newBankName" placeholder="Bank Name (e.g. PNB, BOB)" class="w-full px-3 py-2 bg-slate-950 border border-sky-500/50 rounded-xl text-xs text-white">
+                            <button onclick="addNewBank()" class="px-4 py-2 bg-cyan-600 text-white rounded-xl font-orbitron text-xs font-bold">Add</button>
+                    
